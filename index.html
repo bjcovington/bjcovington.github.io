@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Braden Covington — Construction Science & Management</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --sand: #F5F2ED;
+    --sand-dark: #EAE6DF;
+    --ink: #1A1814;
+    --ink-mid: #3D3A35;
+    --ink-light: #7A756D;
+    --accent: #B5532A;
+    --accent-light: #E8C4B0;
+    --white: #FEFCFA;
+    --border: rgba(26,24,20,0.10);
+    --border-strong: rgba(26,24,20,0.18);
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+    --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--white);
+    color: var(--ink);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(254,252,250,0.88);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    max-width: 1100px; margin: 0 auto;
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+  }
+  .nav-logo {
+    font-family: var(--serif); font-size: 1.1rem; color: var(--ink);
+    text-decoration: none; letter-spacing: 0.01em;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.85rem; font-weight: 400; letter-spacing: 0.04em;
+    text-transform: uppercase; color: var(--ink-light);
+    text-decoration: none; transition: color var(--transition);
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta {
+    font-size: 0.82rem; font-weight: 500; letter-spacing: 0.04em;
+    text-transform: uppercase; color: var(--white);
+    background: var(--accent); border: none;
+    padding: 0.45rem 1.1rem; border-radius: 3px;
+    cursor: pointer; text-decoration: none;
+    transition: background var(--transition), transform var(--transition);
+  }
+  .nav-cta:hover { background: var(--ink); transform: translateY(-1px); }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+  .hamburger span { display: block; width: 22px; height: 1.5px; background: var(--ink); transition: var(--transition); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 100px 2rem 6rem;
+    max-width: 1100px; margin: 0 auto;
+    position: relative;
+  }
+  .hero-eyebrow {
+    font-size: 0.78rem; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 1.5rem;
+    opacity: 0; animation: fadeUp 0.7s 0.2s forwards;
+  }
+  .hero-name {
+    font-family: var(--serif); font-size: clamp(3.2rem, 8vw, 6.5rem);
+    line-height: 1.0; color: var(--ink);
+    margin-bottom: 1.5rem;
+    opacity: 0; animation: fadeUp 0.7s 0.35s forwards;
+  }
+  .hero-name em { font-style: italic; color: var(--ink-mid); }
+  .hero-subtitle {
+    font-size: clamp(1rem, 2vw, 1.2rem); font-weight: 300;
+    color: var(--ink-light); max-width: 560px; line-height: 1.75;
+    margin-bottom: 3rem;
+    opacity: 0; animation: fadeUp 0.7s 0.5s forwards;
+  }
+  .hero-actions {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp 0.7s 0.65s forwards;
+  }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-size: 0.88rem; font-weight: 500; letter-spacing: 0.03em;
+    color: var(--white); background: var(--ink);
+    padding: 0.85rem 2rem; border-radius: 3px; text-decoration: none;
+    transition: background var(--transition), transform var(--transition);
+  }
+  .btn-primary:hover { background: var(--accent); transform: translateY(-2px); }
+  .btn-outline {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-size: 0.88rem; font-weight: 500; letter-spacing: 0.03em;
+    color: var(--ink); background: transparent;
+    border: 1px solid var(--border-strong);
+    padding: 0.85rem 2rem; border-radius: 3px; text-decoration: none;
+    transition: border-color var(--transition), color var(--transition), transform var(--transition);
+  }
+  .btn-outline:hover { border-color: var(--ink); transform: translateY(-2px); }
+
+  .hero-scroll {
+    position: absolute; bottom: 2.5rem; left: 2rem;
+    display: flex; align-items: center; gap: 0.75rem;
+    font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-light);
+    opacity: 0; animation: fadeUp 0.7s 0.9s forwards;
+  }
+  .scroll-line {
+    width: 40px; height: 1px; background: var(--ink-light);
+    position: relative; overflow: hidden;
+  }
+  .scroll-line::after {
+    content: ''; position: absolute; top: 0; left: -100%;
+    width: 100%; height: 100%; background: var(--accent);
+    animation: scrollPulse 2s 1.5s infinite;
+  }
+
+  /* ── SECTIONS ── */
+  .section {
+    padding: 7rem 2rem;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .section-divider {
+    border: none; border-top: 1px solid var(--border);
+    max-width: 1100px; margin: 0 auto;
+  }
+  .section-label {
+    font-size: 0.72rem; font-weight: 500; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: var(--serif); font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.1; color: var(--ink); margin-bottom: 1rem;
+  }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
+    align-items: start; margin-top: 3.5rem;
+  }
+  .about-text p {
+    font-size: 1.05rem; font-weight: 300; line-height: 1.85;
+    color: var(--ink-mid); margin-bottom: 1.25rem;
+  }
+  .about-text p strong { font-weight: 500; color: var(--ink); }
+  .about-stats {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+  }
+  .stat-card {
+    padding: 1.5rem; background: var(--sand);
+    border-radius: 4px; border: 1px solid var(--border);
+  }
+  .stat-number {
+    font-family: var(--serif); font-size: 2.5rem; color: var(--ink);
+    line-height: 1; margin-bottom: 0.4rem;
+  }
+  .stat-label {
+    font-size: 0.8rem; font-weight: 400; letter-spacing: 0.04em;
+    color: var(--ink-light); text-transform: uppercase;
+  }
+  .about-image-block {
+    position: relative; background: var(--sand-dark);
+    border-radius: 4px; overflow: hidden;
+    aspect-ratio: 4/5;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .about-image-placeholder {
+    font-family: var(--serif); font-size: 5rem; color: var(--accent-light);
+    user-select: none;
+  }
+  .about-image-label {
+    position: absolute; bottom: 1.25rem; left: 1.25rem;
+    font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-light);
+  }
+
+  /* ── PROJECTS ── */
+  #projects { background: var(--sand); }
+  #projects .section { background: transparent; }
+  .projects-header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-bottom: 3rem; flex-wrap: wrap; gap: 1.5rem;
+  }
+  .projects-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px;
+    background: var(--border);
+  }
+  .project-card {
+    background: var(--sand); padding: 2rem;
+    cursor: pointer;
+    transition: background var(--transition);
+    position: relative; overflow: hidden;
+  }
+  .project-card::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 3px; height: 0; background: var(--accent);
+    transition: height var(--transition);
+  }
+  .project-card:hover { background: var(--white); }
+  .project-card:hover::before { height: 100%; }
+  .project-tag {
+    display: inline-block; font-size: 0.68rem; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 1rem;
+  }
+  .project-title {
+    font-family: var(--serif); font-size: 1.3rem;
+    color: var(--ink); margin-bottom: 0.75rem; line-height: 1.25;
+  }
+  .project-desc {
+    font-size: 0.9rem; font-weight: 300; line-height: 1.7;
+    color: var(--ink-light); margin-bottom: 1.5rem;
+  }
+  .project-meta {
+    display: flex; align-items: center; gap: 1rem;
+    font-size: 0.78rem; color: var(--ink-light);
+    letter-spacing: 0.04em;
+  }
+  .project-meta span { display: flex; align-items: center; gap: 0.4rem; }
+  .project-arrow {
+    margin-left: auto; font-size: 1.1rem;
+    transition: transform var(--transition); color: var(--ink-light);
+  }
+  .project-card:hover .project-arrow { transform: translate(3px, -3px); color: var(--accent); }
+
+  /* ── SKILLS ── */
+  .skills-intro {
+    font-size: 1.05rem; font-weight: 300; color: var(--ink-mid);
+    max-width: 580px; line-height: 1.85; margin-bottom: 4rem;
+  }
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem;
+  }
+  .skill-group-title {
+    font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 1.25rem; padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .skill-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .skill-list li {
+    font-size: 0.92rem; color: var(--ink-mid); font-weight: 300;
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .skill-list li::before {
+    content: ''; width: 4px; height: 4px; border-radius: 50%;
+    background: var(--accent); flex-shrink: 0;
+  }
+  .skills-bar-section { margin-top: 4rem; }
+  .skills-bar-title {
+    font-family: var(--serif); font-size: 1.5rem; margin-bottom: 2rem; color: var(--ink);
+  }
+  .skill-bar-item { margin-bottom: 1.5rem; }
+  .skill-bar-header {
+    display: flex; justify-content: space-between;
+    font-size: 0.85rem; color: var(--ink-mid); margin-bottom: 0.5rem;
+  }
+  .skill-bar-track {
+    height: 3px; background: var(--sand-dark); border-radius: 2px; overflow: hidden;
+  }
+  .skill-bar-fill {
+    height: 100%; background: var(--ink); border-radius: 2px;
+    width: 0; transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .skill-bar-fill.animated { width: var(--target-width); }
+
+  /* ── RESUME ── */
+  #resume { background: var(--sand); }
+  #resume .section { background: transparent; }
+  .resume-layout {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+    margin-top: 3.5rem;
+  }
+  .resume-col-title {
+    font-family: var(--serif); font-size: 1.35rem; color: var(--ink);
+    margin-bottom: 2rem; padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .resume-entry { margin-bottom: 2rem; }
+  .resume-entry-header {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 1rem; margin-bottom: 0.35rem; flex-wrap: wrap;
+  }
+  .resume-entry-title {
+    font-size: 0.95rem; font-weight: 500; color: var(--ink);
+  }
+  .resume-entry-date {
+    font-size: 0.75rem; font-weight: 400; letter-spacing: 0.06em;
+    color: var(--accent); white-space: nowrap;
+    padding: 0.2rem 0.6rem; background: var(--accent-light);
+    border-radius: 2px;
+  }
+  .resume-entry-org {
+    font-size: 0.82rem; color: var(--ink-light); margin-bottom: 0.6rem;
+    font-style: italic;
+  }
+  .resume-entry-desc {
+    font-size: 0.88rem; font-weight: 300; line-height: 1.75;
+    color: var(--ink-mid);
+  }
+  .resume-download-row {
+    margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid var(--border);
+    display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;
+  }
+  .resume-download-text {
+    font-size: 0.88rem; font-weight: 300; color: var(--ink-light);
+  }
+
+  /* ── CONTACT ── */
+  .contact-layout {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
+    align-items: start; margin-top: 3.5rem;
+  }
+  .contact-info p {
+    font-size: 1.05rem; font-weight: 300; color: var(--ink-mid);
+    line-height: 1.85; margin-bottom: 2.5rem;
+  }
+  .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+  .contact-link {
+    display: flex; align-items: center; gap: 1rem;
+    font-size: 0.92rem; color: var(--ink-mid); text-decoration: none;
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--border); border-radius: 4px;
+    transition: border-color var(--transition), color var(--transition), background var(--transition);
+  }
+  .contact-link:hover {
+    border-color: var(--ink); color: var(--ink);
+    background: var(--sand);
+  }
+  .contact-link-icon {
+    width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
+    background: var(--sand); border-radius: 3px; flex-shrink: 0;
+    font-size: 1.1rem;
+  }
+  .contact-link-text { display: flex; flex-direction: column; gap: 0.1rem; }
+  .contact-link-label { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-light); }
+  .contact-link-value { font-size: 0.9rem; }
+
+  .contact-form { display: flex; flex-direction: column; gap: 1.25rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+  .form-label {
+    font-size: 0.75rem; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--ink-light);
+  }
+  .form-input, .form-textarea {
+    font-family: var(--sans); font-size: 0.95rem; font-weight: 300;
+    color: var(--ink); background: var(--white);
+    border: 1px solid var(--border); border-radius: 3px;
+    padding: 0.85rem 1rem; outline: none;
+    transition: border-color var(--transition);
+    resize: none;
+  }
+  .form-input:focus, .form-textarea:focus { border-color: var(--ink); }
+  .form-textarea { min-height: 130px; }
+  .form-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem;
+    font-family: var(--sans); font-size: 0.88rem; font-weight: 500;
+    letter-spacing: 0.04em; color: var(--white);
+    background: var(--ink); border: none;
+    padding: 0.95rem 2rem; border-radius: 3px; cursor: pointer;
+    transition: background var(--transition), transform var(--transition);
+  }
+  .form-btn:hover { background: var(--accent); transform: translateY(-1px); }
+  .form-success {
+    display: none; padding: 1rem 1.25rem; background: #E8F4ED;
+    border: 1px solid #A8D5B5; border-radius: 3px;
+    font-size: 0.9rem; color: #2D6A4F;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2.5rem 2rem;
+  }
+  .footer-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-name {
+    font-family: var(--serif); font-size: 1rem; color: var(--ink);
+  }
+  .footer-copy {
+    font-size: 0.78rem; color: var(--ink-light); font-weight: 300;
+  }
+  .footer-links { display: flex; gap: 1.5rem; }
+  .footer-links a {
+    font-size: 0.78rem; color: var(--ink-light); text-decoration: none;
+    transition: color var(--transition);
+  }
+  .footer-links a:hover { color: var(--accent); }
+
+  /* ── MOBILE NAV ── */
+  .mobile-menu {
+    display: none; position: fixed; inset: 0; z-index: 99;
+    background: var(--white); flex-direction: column;
+    align-items: center; justify-content: center; gap: 2.5rem;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    font-family: var(--serif); font-size: 2rem; color: var(--ink);
+    text-decoration: none;
+  }
+  .mobile-close {
+    position: absolute; top: 1.2rem; right: 1.5rem;
+    font-size: 1.8rem; background: none; border: none;
+    color: var(--ink); cursor: pointer;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes scrollPulse {
+    from { left: -100%; }
+    to   { left: 100%; }
+  }
+  .reveal {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 860px) {
+    .nav-links, .nav-cta { display: none; }
+    .hamburger { display: flex; }
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .about-image-block { display: none; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+    .resume-layout { grid-template-columns: 1fr; gap: 2rem; }
+    .contact-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+    .footer-inner { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+  }
+  @media (max-width: 560px) {
+    .skills-grid { grid-template-columns: 1fr; }
+    .about-stats { grid-template-columns: 1fr 1fr; }
+    .hero-name { font-size: 2.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="#hero">Braden Covington</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#resume">Resume</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="nav-cta" href="#contact">Get in Touch</a>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" id="menuClose" aria-label="Close menu">✕</button>
+  <a href="#about" class="mobile-nav-link">About</a>
+  <a href="#projects" class="mobile-nav-link">Projects</a>
+  <a href="#skills" class="mobile-nav-link">Skills</a>
+  <a href="#resume" class="mobile-nav-link">Resume</a>
+  <a href="#contact" class="mobile-nav-link">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <p class="hero-eyebrow">Construction Science &amp; Management</p>
+  <h1 class="hero-name">Braden<br><em>Covington</em></h1>
+  <p class="hero-subtitle">
+    Aspiring construction professional with a passion for project delivery,
+    sustainable building practices, and bridging the gap between field operations
+    and management strategy.
+  </p>
+  <div class="hero-actions">
+    <a href="#projects" class="btn-primary">View My Work →</a>
+    <a href="#resume" class="btn-outline">Download Resume</a>
+  </div>
+  <div class="hero-scroll">
+    <span class="scroll-line"></span>
+    Scroll to explore
+  </div>
+</section>
+
+<!-- ABOUT -->
+<hr class="section-divider" />
+<section id="about">
+  <div class="section">
+    <p class="section-label">About Me</p>
+    <h2 class="section-title">Building careers,<br>one project at a time.</h2>
+    <div class="about-grid">
+      <div>
+        <div class="about-text">
+          <p>
+            I'm <strong>Braden Covington</strong>, a Construction Science &amp; Management student
+            with a drive to understand how great buildings come together — from the first
+            drawing to the final inspection.
+          </p>
+          <p>
+            My coursework has given me a strong foundation in <strong>project scheduling,
+            cost estimating, safety management, and sustainable construction</strong>.
+            I'm equally comfortable reading a set of blueprints as I am analyzing
+            a project budget.
+          </p>
+          <p>
+            Outside the classroom I've pursued hands-on experience through internships
+            and student project competitions, where I've learned that communication
+            and collaboration are just as critical as technical skill.
+          </p>
+        </div>
+        <div class="about-stats" style="margin-top:2rem;">
+          <div class="stat-card reveal">
+            <div class="stat-number">3+</div>
+            <div class="stat-label">Years of Study</div>
+          </div>
+          <div class="stat-card reveal">
+            <div class="stat-number">8+</div>
+            <div class="stat-label">Completed Projects</div>
+          </div>
+          <div class="stat-card reveal">
+            <div class="stat-number">2</div>
+            <div class="stat-label">Internships</div>
+          </div>
+          <div class="stat-card reveal">
+            <div class="stat-number">LEED</div>
+            <div class="stat-label">Green Associate</div>
+          </div>
+        </div>
+      </div>
+      <div class="about-image-block reveal">
+        <span class="about-image-placeholder">BC</span>
+        <span class="about-image-label">Replace with your photo</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<div id="projects" style="background:var(--sand);">
+<div class="section">
+  <div class="projects-header">
+    <div>
+      <p class="section-label">Projects</p>
+      <h2 class="section-title">Selected Work</h2>
+    </div>
+  </div>
+  <div class="projects-grid">
+
+    <div class="project-card reveal">
+      <span class="project-tag">Capstone</span>
+      <h3 class="project-title">Mixed-Use Development Feasibility Study</h3>
+      <p class="project-desc">End-to-end feasibility analysis for a 60-unit mixed-use development including site assessment, preliminary cost estimating, and scheduling using Primavera P6.</p>
+      <div class="project-meta">
+        <span>📐 Estimating</span>
+        <span>📅 Scheduling</span>
+        <span class="project-arrow">↗</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <span class="project-tag">Competition</span>
+      <h3 class="project-title">ASC Regional Student Competition</h3>
+      <p class="project-desc">Led a 4-person team in the Associated Schools of Construction regional competition, presenting a full bid package including scope, schedule, and safety plan within 8 hours.</p>
+      <div class="project-meta">
+        <span>🏆 Team Lead</span>
+        <span>⏱ Bid Package</span>
+        <span class="project-arrow">↗</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <span class="project-tag">Internship</span>
+      <h3 class="project-title">Commercial Renovation Site Work</h3>
+      <p class="project-desc">Supported a project manager during a 12,000 SF commercial office renovation — tracking RFIs, managing daily reports, coordinating subcontractor schedules on-site.</p>
+      <div class="project-meta">
+        <span>🏗 Field Work</span>
+        <span>📋 RFIs</span>
+        <span class="project-arrow">↗</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <span class="project-tag">Coursework</span>
+      <h3 class="project-title">Sustainable Building Materials Analysis</h3>
+      <p class="project-desc">Comparative life-cycle analysis of conventional versus sustainable building materials for a mid-rise residential project, including embodied carbon calculations.</p>
+      <div class="project-meta">
+        <span>🌿 Sustainability</span>
+        <span>📊 LCA</span>
+        <span class="project-arrow">↗</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <span class="project-tag">Internship</span>
+      <h3 class="project-title">Safety Audit & OSHA Compliance Review</h3>
+      <p class="project-desc">Conducted a comprehensive site safety audit for a GC during internship, identifying 14 corrective actions and assisting with the development of an updated site safety plan.</p>
+      <div class="project-meta">
+        <span>⛑ Safety</span>
+        <span>📝 Compliance</span>
+        <span class="project-arrow">↗</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <span class="project-tag">Coursework</span>
+      <h3 class="project-title">Preconstruction Planning Report</h3>
+      <p class="project-desc">Developed a complete preconstruction planning document for a hypothetical K-12 school project, covering site logistics, phasing strategy, and stakeholder communication plan.</p>
+      <div class="project-meta">
+        <span>🏫 Planning</span>
+        <span>📐 Phasing</span>
+        <span class="project-arrow">↗</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section">
+    <p class="section-label">Skills</p>
+    <h2 class="section-title">What I Bring</h2>
+    <p class="skills-intro reveal">
+      A blend of technical construction knowledge, project management methodology,
+      and the soft skills that keep teams aligned and projects on track.
+    </p>
+
+    <div class="skills-grid">
+      <div class="reveal">
+        <p class="skill-group-title">Technical Skills</p>
+        <ul class="skill-list">
+          <li>Construction Cost Estimating</li>
+          <li>Project Scheduling (P6, MS Project)</li>
+          <li>Blueprint & Drawing Reading</li>
+          <li>Site Safety Management</li>
+          <li>Building Codes & Compliance</li>
+          <li>Quantity Takeoffs</li>
+          <li>AutoCAD (basic)</li>
+        </ul>
+      </div>
+      <div class="reveal">
+        <p class="skill-group-title">Software & Tools</p>
+        <ul class="skill-list">
+          <li>Primavera P6</li>
+          <li>Procore</li>
+          <li>Bluebeam Revu</li>
+          <li>Microsoft Project</li>
+          <li>PlanSwift</li>
+          <li>AutoCAD (basic)</li>
+          <li>Microsoft Office Suite</li>
+        </ul>
+      </div>
+      <div class="reveal">
+        <p class="skill-group-title">Professional Skills</p>
+        <ul class="skill-list">
+          <li>Project Management</li>
+          <li>Team Leadership</li>
+          <li>Subcontractor Coordination</li>
+          <li>Technical Writing</li>
+          <li>Client Communication</li>
+          <li>Problem Solving</li>
+          <li>Attention to Detail</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="skills-bar-section reveal">
+      <h3 class="skills-bar-title">Proficiency Overview</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 4rem;max-width:700px;">
+        <div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-header"><span>Cost Estimating</span><span>90%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="--target-width:90%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-header"><span>Project Scheduling</span><span>82%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="--target-width:82%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-header"><span>Procore</span><span>75%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="--target-width:75%"></div></div>
+          </div>
+        </div>
+        <div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-header"><span>Safety Management</span><span>85%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="--target-width:85%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-header"><span>Bluebeam Revu</span><span>78%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="--target-width:78%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-header"><span>AutoCAD</span><span>55%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="--target-width:55%"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- RESUME -->
+<div id="resume" style="background:var(--sand);">
+<div class="section">
+  <p class="section-label">Resume</p>
+  <h2 class="section-title">Experience & Education</h2>
+  <div class="resume-layout">
+    <div class="reveal">
+      <h3 class="resume-col-title">Experience</h3>
+
+      <div class="resume-entry">
+        <div class="resume-entry-header">
+          <span class="resume-entry-title">Construction Management Intern</span>
+          <span class="resume-entry-date">Summer 2024</span>
+        </div>
+        <p class="resume-entry-org">ABC General Contractors — City, State</p>
+        <p class="resume-entry-desc">Assisted project managers with daily field operations on a $4M commercial renovation. Managed RFI logs, maintained daily reports, and coordinated subcontractor activities. Contributed to a 2-week schedule recovery effort.</p>
+      </div>
+
+      <div class="resume-entry">
+        <div class="resume-entry-header">
+          <span class="resume-entry-title">Construction Intern</span>
+          <span class="resume-entry-date">Summer 2023</span>
+        </div>
+        <p class="resume-entry-org">XYZ Construction Services — City, State</p>
+        <p class="resume-entry-desc">Supported field supervision on a multi-family residential project. Performed quantity takeoffs, assisted with submittal tracking, and participated in weekly owner/architect/contractor meetings.</p>
+      </div>
+
+      <div class="resume-entry">
+        <div class="resume-entry-header">
+          <span class="resume-entry-title">Lab Assistant — Construction Materials</span>
+          <span class="resume-entry-date">2023–Present</span>
+        </div>
+        <p class="resume-entry-org">University Department of Construction Science</p>
+        <p class="resume-entry-desc">Assist faculty with concrete, steel, and masonry material testing labs. Prepare specimens, operate testing equipment, and help students understand material behavior and code requirements.</p>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <h3 class="resume-col-title">Education</h3>
+
+      <div class="resume-entry">
+        <div class="resume-entry-header">
+          <span class="resume-entry-title">B.S. Construction Science & Management</span>
+          <span class="resume-entry-date">Expected 2026</span>
+        </div>
+        <p class="resume-entry-org">Your University — City, State</p>
+        <p class="resume-entry-desc">GPA: 3.6 / 4.0 · Dean's List 3 semesters · Concentration in Project Management and Sustainable Construction.</p>
+      </div>
+
+      <div class="resume-entry">
+        <div class="resume-entry-header">
+          <span class="resume-entry-title">LEED Green Associate</span>
+          <span class="resume-entry-date">2024</span>
+        </div>
+        <p class="resume-entry-org">U.S. Green Building Council</p>
+        <p class="resume-entry-desc">Credential demonstrating knowledge of green building practices and the LEED rating system across building types and project phases.</p>
+      </div>
+
+      <div class="resume-entry">
+        <div class="resume-entry-header">
+          <span class="resume-entry-title">OSHA 30-Hour Construction</span>
+          <span class="resume-entry-date">2023</span>
+        </div>
+        <p class="resume-entry-org">OSHA Outreach Training Program</p>
+        <p class="resume-entry-desc">Completed 30-hour construction industry safety training covering fall protection, electrical safety, scaffolding, and hazard recognition.</p>
+      </div>
+
+      <div class="resume-entry">
+        <div class="resume-entry-header">
+          <span class="resume-entry-title">ASC Competition Team — Regional</span>
+          <span class="resume-entry-date">2024</span>
+        </div>
+        <p class="resume-entry-org">Associated Schools of Construction</p>
+        <p class="resume-entry-desc">Team lead for regional bid competition. Coordinated bid strategy, estimating, and presentation within an 8-hour window. Placed Top 3 in the Commercial category.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="resume-download-row reveal">
+    <p class="resume-download-text">Want the full picture? Download my complete resume.</p>
+    <a class="btn-primary" href="resume.pdf" download>Download Resume PDF ↓</a>
+  </div>
+</div>
+</div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section">
+    <p class="section-label">Contact</p>
+    <h2 class="section-title">Let's Connect</h2>
+    <div class="contact-layout">
+      <div>
+        <p class="contact-info" style="font-size:1.05rem;font-weight:300;color:var(--ink-mid);line-height:1.85;margin-bottom:2.5rem;">
+          Whether you're a recruiter, a fellow student, or just interested in talking construction —
+          I'd love to hear from you. I'm currently open to internship and full-time opportunities
+          for 2025 and beyond.
+        </p>
+        <div class="contact-links">
+          <a href="mailto:braden.covington@email.com" class="contact-link">
+            <div class="contact-link-icon">✉️</div>
+            <div class="contact-link-text">
+              <span class="contact-link-label">Email</span>
+              <span class="contact-link-value">braden.covington@email.com</span>
+            </div>
+          </a>
+          <a href="https://linkedin.com/in/bradencovington" target="_blank" rel="noopener" class="contact-link">
+            <div class="contact-link-icon">💼</div>
+            <div class="contact-link-text">
+              <span class="contact-link-label">LinkedIn</span>
+              <span class="contact-link-value">linkedin.com/in/bradencovington</span>
+            </div>
+          </a>
+          <a href="https://github.com/bradencovington" target="_blank" rel="noopener" class="contact-link">
+            <div class="contact-link-icon">🔗</div>
+            <div class="contact-link-text">
+              <span class="contact-link-label">GitHub</span>
+              <span class="contact-link-value">github.com/bradencovington</span>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div>
+        <div class="contact-form" id="contactForm">
+          <div class="form-group">
+            <label class="form-label" for="fname">Name</label>
+            <input class="form-input" type="text" id="fname" placeholder="Your full name" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="femail">Email</label>
+            <input class="form-input" type="email" id="femail" placeholder="your@email.com" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="fmsg">Message</label>
+            <textarea class="form-textarea" id="fmsg" placeholder="Tell me a bit about what you're looking for..."></textarea>
+          </div>
+          <button class="form-btn" id="formBtn" type="button">Send Message →</button>
+          <div class="form-success" id="formSuccess">
+            ✓ Thanks for reaching out! I'll get back to you soon.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <span class="footer-name">Braden Covington</span>
+    <span class="footer-copy">© 2025 · Built with care</span>
+    <div class="footer-links">
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Hamburger / mobile menu
+  const hamburger = document.getElementById('hamburgerBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const menuClose = document.getElementById('menuClose');
+  hamburger.addEventListener('click', () => mobileMenu.classList.add('open'));
+  menuClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
+  document.querySelectorAll('.mobile-nav-link').forEach(l => {
+    l.addEventListener('click', () => mobileMenu.classList.remove('open'));
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        // Stagger siblings
+        const siblings = [...e.target.parentElement.querySelectorAll('.reveal')];
+        const idx = siblings.indexOf(e.target);
+        e.target.style.transitionDelay = (idx * 0.08) + 's';
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Skill bar animation
+  const barObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.skill-bar-fill').forEach(bar => bar.classList.add('animated'));
+        barObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  document.querySelectorAll('.skills-bar-section').forEach(el => barObserver.observe(el));
+
+  // Contact form
+  document.getElementById('formBtn').addEventListener('click', function () {
+    const name = document.getElementById('fname').value.trim();
+    const email = document.getElementById('femail').value.trim();
+    const msg = document.getElementById('fmsg').value.trim();
+    if (!name || !email || !msg) { return; }
+    this.textContent = 'Sending…';
+    this.disabled = true;
+    setTimeout(() => {
+      document.getElementById('formSuccess').style.display = 'block';
+      document.getElementById('fname').value = '';
+      document.getElementById('femail').value = '';
+      document.getElementById('fmsg').value = '';
+      this.textContent = 'Send Message →';
+      this.disabled = false;
+    }, 900);
+  });
+
+  // Active nav highlighting
+  const sections = document.querySelectorAll('section[id], div[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 100) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current
+        ? 'var(--ink)' : '';
+    });
+  }, { passive: true });
+</script>
+</body>
+</html>
