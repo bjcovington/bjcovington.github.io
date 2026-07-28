@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Project Directory — Braden Covington</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --sand: #F5F2ED; --sand-dark: #EAE6DF; --ink: #1A1814; --ink-mid: #3D3A35;
+    --ink-light: #7A756D; --accent: #B5532A; --accent-light: #E8C4B0;
+    --white: #FEFCFA; --border: rgba(26,24,20,0.10); --border-strong: rgba(26,24,20,0.18);
+    --serif: 'DM Serif Display', Georgia, serif; --sans: 'DM Sans', system-ui, sans-serif;
+    --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  html { scroll-behavior: smooth; font-size: 16px; }
+  body { font-family: var(--sans); background: var(--white); color: var(--ink); line-height: 1.6; overflow-x: hidden; }
+
+  /* Top bar with back button */
+  .topbar { position: sticky; top: 0; z-index: 100; background: rgba(254,252,250,0.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+  .topbar-inner { max-width: 1100px; margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; height: 60px; }
+  .back-link { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.03em; color: var(--ink); text-decoration: none; padding: 0.4rem 0.2rem; transition: color var(--transition), transform var(--transition); }
+  .back-link:hover { color: var(--accent); transform: translateX(-3px); }
+  .back-arrow { font-size: 1.1rem; line-height: 1; }
+
+  .section { padding: 5rem 2rem 7rem; max-width: 1100px; margin: 0 auto; }
+  .section-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+  .section-title { font-family: var(--serif); font-size: clamp(2rem, 4vw, 3rem); line-height: 1.1; color: var(--ink); margin-bottom: 1rem; }
+  .section-intro { font-size: 1.02rem; font-weight: 300; color: var(--ink-mid); max-width: 620px; line-height: 1.8; margin-bottom: 3.5rem; }
+
+  /* States */
+  .state-box { display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; padding: 3rem 0; }
+  .state-text { font-size: 0.95rem; color: var(--ink-light); font-weight: 300; }
+  .spinner { width: 22px; height: 22px; border: 2px solid var(--border-strong); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .retry-btn { font-family: var(--sans); font-size: 0.85rem; font-weight: 500; color: var(--white); background: var(--ink); border: none; padding: 0.7rem 1.5rem; border-radius: 3px; cursor: pointer; transition: background var(--transition); }
+  .retry-btn:hover { background: var(--accent); }
+
+  /* Cards grid */
+  .repo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; background: var(--border); border-radius: 4px; overflow: hidden; }
+  .repo-card { background: var(--sand); padding: 2rem; text-decoration: none; color: inherit; transition: background var(--transition); position: relative; overflow: hidden; display: flex; flex-direction: column; opacity: 0; transform: translateY(16px); animation: cardIn 0.5s ease forwards; }
+  @keyframes cardIn { to { opacity: 1; transform: none; } }
+  .repo-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 0; background: var(--accent); transition: height var(--transition); }
+  .repo-card:hover { background: var(--white); }
+  .repo-card:hover::before { height: 100%; }
+  .repo-name { font-family: var(--serif); font-size: 1.25rem; color: var(--ink); margin-bottom: 0.6rem; line-height: 1.25; word-break: break-word; }
+  .repo-desc { font-size: 0.88rem; font-weight: 300; line-height: 1.65; color: var(--ink-light); margin-bottom: 1.5rem; flex-grow: 1; }
+  .repo-meta { display: flex; align-items: center; justify-content: space-between; font-size: 0.75rem; color: var(--ink-light); gap: 0.5rem; margin-top: auto; }
+  .repo-updated { white-space: nowrap; }
+  .repo-visit { font-size: 0.78rem; color: var(--accent); font-weight: 500; }
+  .repo-card:hover .repo-visit { text-decoration: underline; }
+
+  footer { border-top: 1px solid var(--border); padding: 2.5rem 2rem; }
+  .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+  .footer-name { font-family: var(--serif); font-size: 1rem; color: var(--ink); }
+  .footer-copy { font-size: 0.78rem; color: var(--ink-light); font-weight: 300; }
+
+  @media (max-width: 860px) {
+    .repo-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 560px) {
+    .repo-grid { grid-template-columns: 1fr; }
+    .section { padding: 3.5rem 1.25rem 5rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="back-link" href="index.html">
+      <span class="back-arrow">←</span> Back to Home
+    </a>
+  </div>
+</div>
+
+<div class="section">
+  <p class="section-label">Directory</p>
+  <h2 class="section-title">Other Projects</h2>
+  <p class="section-intro">
+    Every public GitHub Pages site under my account, pulled in automatically —
+    this list updates itself as I publish new projects, no manual editing required.
+  </p>
+
+  <div id="stateBox" class="state-box">
+    <div class="spinner"></div>
+    <p class="state-text">Loading projects from GitHub…</p>
+  </div>
+
+  <div id="repoGrid" class="repo-grid" style="display:none;"></div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <span class="footer-name">Braden Covington</span>
+    <span class="footer-copy">© 2025 · Kansas State University</span>
+  </div>
+</footer>
+
+<script>
+  const GITHUB_USERNAME = 'bjcovington';
+  const MAIN_SITE_REPO = `${GITHUB_USERNAME}.github.io`; // exclude this repo itself
+
+  const stateBox = document.getElementById('stateBox');
+  const repoGrid = document.getElementById('repoGrid');
+
+  function timeAgo(dateStr) {
+    const diffMs = Date.now() - new Date(dateStr).getTime();
+    const days = Math.floor(diffMs / 86400000);
+    if (days < 1) return 'Updated today';
+    if (days === 1) return 'Updated yesterday';
+    if (days < 30) return `Updated ${days}d ago`;
+    const months = Math.floor(days / 30);
+    if (months < 12) return `Updated ${months}mo ago`;
+    return `Updated ${Math.floor(months / 12)}y ago`;
+  }
+
+  function renderCards(repos) {
+    repoGrid.innerHTML = repos.map((r, i) => `
+      <a class="repo-card" href="https://${GITHUB_USERNAME}.github.io/${r.name}/" target="_blank" rel="noopener" style="animation-delay:${i * 0.05}s">
+        <h3 class="repo-name">${escapeHtml(r.name)}</h3>
+        <p class="repo-desc">${escapeHtml(r.description || 'No description provided.')}</p>
+        <div class="repo-meta">
+          <span class="repo-updated">${timeAgo(r.pushed_at)}</span>
+          <span class="repo-visit">Visit ↗</span>
+        </div>
+      </a>
+    `).join('');
+    stateBox.style.display = 'none';
+    repoGrid.style.display = 'grid';
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function showError() {
+    stateBox.innerHTML = `
+      <p class="state-text">Couldn't load projects from GitHub right now.</p>
+      <button class="retry-btn" onclick="loadRepos()">Try Again</button>
+    `;
+    stateBox.style.display = 'flex';
+    repoGrid.style.display = 'none';
+  }
+
+  function showEmpty() {
+    stateBox.innerHTML = `<p class="state-text">No other GitHub Pages projects found yet.</p>`;
+    stateBox.style.display = 'flex';
+    repoGrid.style.display = 'none';
+  }
+
+  async function loadRepos() {
+    stateBox.innerHTML = `<div class="spinner"></div><p class="state-text">Loading projects from GitHub…</p>`;
+    stateBox.style.display = 'flex';
+    repoGrid.style.display = 'none';
+
+    try {
+      const res = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&sort=pushed`);
+      if (!res.ok) throw new Error('GitHub API request failed: ' + res.status);
+      const repos = await res.json();
+
+      const pagesRepos = repos
+        .filter(r => r.has_pages && !r.fork && r.name !== MAIN_SITE_REPO && !r.archived)
+        .sort((a, b) => new Date(b.pushed_at) - new Date(a.pushed_at));
+
+      if (pagesRepos.length === 0) {
+        showEmpty();
+        return;
+      }
+      renderCards(pagesRepos);
+    } catch (err) {
+      console.error(err);
+      showError();
+    }
+  }
+
+  loadRepos();
+</script>
+</body>
+</html>
